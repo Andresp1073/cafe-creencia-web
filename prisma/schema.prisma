@@ -4,4 +4,75 @@ generator client {
 
 datasource db {
   provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Category {
+  TRADICIONAL
+  MENTA_LIMONCILLO
+  EN_GRANO
+}
+
+enum Presentation {
+  G500
+  G250
+  G125
+}
+
+enum MovementType {
+  ENTRADA
+  SALIDA
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  slug        String   @unique
+  category    Category
+  presentation Presentation
+  weight_grams Int
+  price       Decimal  @db.Decimal(10, 2)
+  stock       Int      @default(0)
+  min_stock   Int      @default(5)
+  description String?  @db.Text
+  image_url   String?
+  is_active   Boolean  @default(true)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  saleItems            SaleItem[]
+  inventoryMovements   InventoryMovement[]
+}
+
+model Sale {
+  id             Int         @id @default(autoincrement())
+  customer_name  String?
+  customer_phone String?
+  total          Decimal     @db.Decimal(10, 2)
+  created_at     DateTime    @default(now())
+
+  saleItems SaleItem[]
+}
+
+model SaleItem {
+  id         Int      @id @default(autoincrement())
+  sale_id    Int
+  product_id Int
+  quantity   Int
+  unit_price Decimal  @db.Decimal(10, 2)
+  subtotal   Decimal  @db.Decimal(10, 2)
+
+  sale    Sale    @relation(fields: [sale_id], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [product_id], references: [id])
+}
+
+model InventoryMovement {
+  id         Int          @id @default(autoincrement())
+  product_id Int
+  type       MovementType
+  quantity   Int
+  reason     String?
+  created_at DateTime     @default(now())
+
+  product Product @relation(fields: [product_id], references: [id])
 }
