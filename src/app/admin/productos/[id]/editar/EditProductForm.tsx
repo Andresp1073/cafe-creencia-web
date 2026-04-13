@@ -52,7 +52,7 @@ export default function EditProductForm({ product }: EditProductFormProps) {
           name="name"
           required
           defaultValue={product.name}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
         />
       </div>
 
@@ -63,14 +63,14 @@ export default function EditProductForm({ product }: EditProductFormProps) {
           name="slug"
           required
           defaultValue={product.slug}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
         />
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-900 mb-1">Categoría *</label>
-          <select name="category" required defaultValue={product.category} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500">
+          <select name="category" required defaultValue={product.category} className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 text-gray-900">
             {CATEGORIES.map(cat => (
               <option key={cat} value={cat}>{CATEGORY_LABELS[cat]}</option>
             ))}
@@ -78,7 +78,7 @@ export default function EditProductForm({ product }: EditProductFormProps) {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-900 mb-1">Presentación *</label>
-          <select name="presentation" required defaultValue={product.presentation} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500">
+          <select name="presentation" required defaultValue={product.presentation} className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 text-gray-900">
             {PRESENTATIONS.map(pres => (
               <option key={pres} value={pres}>{PRESENTATION_LABELS[pres]}</option>
             ))}
@@ -95,7 +95,7 @@ export default function EditProductForm({ product }: EditProductFormProps) {
             required
             min="1"
             defaultValue={product.weight_grams}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+            className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
           />
         </div>
         <div>
@@ -107,7 +107,7 @@ export default function EditProductForm({ product }: EditProductFormProps) {
             min="0"
             step="0.01"
             defaultValue={Number(product.price)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+            className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
           />
         </div>
         <div>
@@ -118,7 +118,7 @@ export default function EditProductForm({ product }: EditProductFormProps) {
             required
             min="0"
             defaultValue={product.stock}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+            className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
           />
         </div>
       </div>
@@ -130,7 +130,7 @@ export default function EditProductForm({ product }: EditProductFormProps) {
           name="min_stock"
           min="0"
           defaultValue={product.min_stock}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
         />
       </div>
 
@@ -141,7 +141,7 @@ export default function EditProductForm({ product }: EditProductFormProps) {
           required
           rows={3}
           defaultValue={product.description || ''}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
         />
       </div>
 
@@ -151,7 +151,7 @@ export default function EditProductForm({ product }: EditProductFormProps) {
           type="text"
           name="image_url"
           defaultValue={product.image_url || '/products/default.svg'}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
         />
       </div>
 

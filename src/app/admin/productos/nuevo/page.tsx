@@ -3,7 +3,6 @@
 import { useRef, useState } from 'react'
 import { createProductAction } from '@/lib/actions'
 import { CATEGORIES, PRESENTATIONS, CATEGORY_LABELS, PRESENTATION_LABELS, generateSlug } from '@/lib/validations'
-import { Category, Presentation } from '@prisma/client'
 
 export default function CreateProductForm() {
   const formRef = useRef<HTMLFormElement>(null)
@@ -48,7 +47,7 @@ export default function CreateProductForm() {
               slugInput.value = generateSlug(e.target.value)
             }
           }}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
           placeholder="Café Tradicional 500g"
         />
       </div>
@@ -60,7 +59,7 @@ export default function CreateProductForm() {
           name="slug"
           required
           pattern="^[a-z0-9-]+$"
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
           placeholder="cafe-tradicional-500g"
         />
       </div>
@@ -68,7 +67,7 @@ export default function CreateProductForm() {
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-900 mb-1">Categoría *</label>
-          <select name="category" required className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500">
+          <select name="category" required className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 text-gray-900">
             {CATEGORIES.map(cat => (
               <option key={cat} value={cat}>{CATEGORY_LABELS[cat]}</option>
             ))}
@@ -76,7 +75,7 @@ export default function CreateProductForm() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-900 mb-1">Presentación *</label>
-          <select name="presentation" required className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500">
+          <select name="presentation" required className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 text-gray-900">
             {PRESENTATIONS.map(pres => (
               <option key={pres} value={pres}>{PRESENTATION_LABELS[pres]}</option>
             ))}
@@ -92,7 +91,8 @@ export default function CreateProductForm() {
             name="weight_grams"
             required
             min="1"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+            placeholder="500"
+            className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
           />
         </div>
         <div>
@@ -103,7 +103,8 @@ export default function CreateProductForm() {
             required
             min="0"
             step="0.01"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+            placeholder="15000"
+            className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
           />
         </div>
         <div>
@@ -113,8 +114,8 @@ export default function CreateProductForm() {
             name="stock"
             required
             min="0"
-            defaultValue="0"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+            placeholder="20"
+            className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
           />
         </div>
       </div>
@@ -125,8 +126,8 @@ export default function CreateProductForm() {
           type="number"
           name="min_stock"
           min="0"
-          defaultValue="5"
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+          placeholder="5"
+          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
         />
       </div>
 
@@ -136,7 +137,7 @@ export default function CreateProductForm() {
           name="description"
           required
           rows={3}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
           placeholder="Descripción del producto..."
         />
       </div>
@@ -146,8 +147,8 @@ export default function CreateProductForm() {
         <input
           type="text"
           name="image_url"
-          defaultValue="/products/default.svg"
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+          placeholder="/products/default.svg"
+          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
         />
       </div>
 
