@@ -13,7 +13,7 @@ const products = [
     stock: 20,
     min_stock: 5,
     description: 'Café tradicional de alta calidad en presentación de 500 gramos',
-    image_url: '/products/default.jpg',
+    image_url: '/products/tradicional-500g.svg',
     is_active: true,
   },
   {
@@ -26,7 +26,7 @@ const products = [
     stock: 20,
     min_stock: 5,
     description: 'Café tradicional de alta calidad en presentación de 250 gramos',
-    image_url: '/products/default.jpg',
+    image_url: '/products/default.svg',
     is_active: true,
   },
   {
@@ -39,7 +39,7 @@ const products = [
     stock: 20,
     min_stock: 5,
     description: 'Café tradicional de alta calidad en presentación de 125 gramos',
-    image_url: '/products/default.jpg',
+    image_url: '/products/default.svg',
     is_active: true,
   },
   {
@@ -52,7 +52,7 @@ const products = [
     stock: 20,
     min_stock: 5,
     description: 'Café con sabor a menta y limoncillo en presentación de 500 gramos',
-    image_url: '/products/default.jpg',
+    image_url: '/products/menta-500g.svg',
     is_active: true,
   },
   {
@@ -65,7 +65,7 @@ const products = [
     stock: 20,
     min_stock: 5,
     description: 'Café con sabor a menta y limoncillo en presentación de 250 gramos',
-    image_url: '/products/default.jpg',
+    image_url: '/products/default.svg',
     is_active: true,
   },
   {
@@ -78,7 +78,7 @@ const products = [
     stock: 20,
     min_stock: 5,
     description: 'Café con sabor a menta y limoncillo en presentación de 125 gramos',
-    image_url: '/products/default.jpg',
+    image_url: '/products/default.svg',
     is_active: true,
   },
   {
@@ -91,7 +91,7 @@ const products = [
     stock: 20,
     min_stock: 5,
     description: 'Café en grano de alta calidad en presentación de 500 gramos',
-    image_url: '/products/default.jpg',
+    image_url: '/products/grano-500g.svg',
     is_active: true,
   },
   {
@@ -104,7 +104,7 @@ const products = [
     stock: 20,
     min_stock: 5,
     description: 'Café en grano de alta calidad en presentación de 250 gramos',
-    image_url: '/products/default.jpg',
+    image_url: '/products/default.svg',
     is_active: true,
   },
   {
@@ -117,7 +117,7 @@ const products = [
     stock: 20,
     min_stock: 5,
     description: 'Café en grano de alta calidad en presentación de 125 gramos',
-    image_url: '/products/default.jpg',
+    image_url: '/products/default.svg',
     is_active: true,
   },
 ]
@@ -128,10 +128,10 @@ async function main() {
   for (const product of products) {
     const created = await prisma.product.upsert({
       where: { slug: product.slug },
-      update: {},
+      update: { image_url: product.image_url },
       create: product,
     })
-    console.log(`Created product: ${created.name}`)
+    console.log(`Updated product: ${created.name}`)
   }
 
   console.log('Seed completed successfully!')
