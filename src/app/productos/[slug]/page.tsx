@@ -31,7 +31,7 @@ export default async function ProductPage({ params }: Props) {
 
   const presentation = presentationMap[product.presentation] || product.presentation
   const price = Number(product.price)
-  const imageSrc = product.image_url || '/products/default.jpg'
+  const imageSrc = product.image_url || '/products/default.svg'
   const waMessage = `Hola, quiero pedir ${product.name} (${presentation}). ¿Está disponible?`
   const waLink = `https://wa.me/573123456789?text=${encodeURIComponent(waMessage)}`
 

@@ -21,7 +21,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   const presentation = presentationMap[product.presentation] || product.presentation
   const priceNum = Number(product.price)
-  const imageSrc = product.image_url || '/products/default.jpg'
+  const imageSrc = product.image_url || '/products/default.svg'
   
   const waLink = getProductWhatsAppLink(product.name, presentation)
 
