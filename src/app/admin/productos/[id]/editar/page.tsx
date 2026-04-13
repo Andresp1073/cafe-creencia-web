@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
-import { getProductById, updateProduct } from '@/lib/products'
-import EditProductClient from './EditProductClient'
+import { getProductById } from '@/lib/products'
+import { CATEGORY_LABELS, PRESENTATION_LABELS } from '@/lib/validations'
+import EditProductForm from './EditProductForm'
 
 interface Props {
   params: Promise<{ id: string }>
@@ -22,5 +23,5 @@ export default async function EditProductPage({ params }: Props) {
     notFound()
   }
 
-  return <EditProductClient product={product} />
+  return <EditProductForm product={product} />
 }

@@ -1,15 +1,10 @@
 import Link from 'next/link'
-import { getAllProducts, toggleProductStatus } from '@/lib/products'
+import { getAllProducts } from '@/lib/products'
 import { CATEGORY_LABELS, PRESENTATION_LABELS } from '@/lib/validations'
+import { toggleProductStatusAction } from '@/lib/actions'
 import ProductStatusBadge from '@/components/ProductStatusBadge'
 
 export const revalidate = 0
-
-async function toggleStatus(formData: FormData) {
-  'use server'
-  const id = parseInt(formData.get('id') as string)
-  await toggleProductStatus(id)
-}
 
 export default async function AdminProductsPage() {
   const products = await getAllProducts()
@@ -78,11 +73,13 @@ export default async function AdminProductsPage() {
                       >
                         Editar
                       </Link>
-                      <form action={toggleStatus as any}>
-                        <input type="hidden" name="id" value={product.id} />
+                      <form action={async () => {
+                        'use server'
+                        await toggleProductStatusAction(product.id)
+                      }}>
                         <button
                           type="submit"
-                          className={`ml-2 ${product.is_active ? 'text-red-600 hover:text-red-900' : 'text-green-600 hover:text-green-900'}`}
+                          className={`ml-2 cursor-pointer ${product.is_active ? 'text-red-600 hover:text-red-900' : 'text-green-600 hover:text-green-900'}`}
                         >
                           {product.is_active ? 'Ocultar' : 'Activar'}
                         </button>
