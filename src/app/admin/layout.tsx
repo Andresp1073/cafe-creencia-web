@@ -19,6 +19,9 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             <Link href="/admin/ventas/historial" className="text-gray-700 hover:text-amber-700 text-sm">
               Historial
             </Link>
+            <Link href="/admin/inventario" className="text-gray-700 hover:text-amber-700">
+              Inventario
+            </Link>
           </div>
           <div className="flex items-center gap-4">
             <Link href="/catalogo" target="_blank" className="text-gray-600 hover:text-amber-700 text-sm">

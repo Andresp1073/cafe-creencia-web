@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
-import { getProductsForSale, registerSale } from '@/lib/actions'
 
 interface CartItem {
   productId: number
@@ -36,11 +35,19 @@ export default function NewSalePage() {
   }, [])
 
   async function loadProducts() {
-    const result = await getProductsForSale()
-    if (result.products) {
-      setProducts(result.products)
+    try {
+      const res = await fetch('/api/productos')
+      const data = await res.json()
+      if (data.error) {
+        console.error('API error:', data.error)
+      } else {
+        setProducts(data)
+      }
+    } catch (err) {
+      console.error('Error loading products:', err)
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   function addToCart(productId: number) {

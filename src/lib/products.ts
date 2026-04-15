@@ -152,6 +152,16 @@ export async function getAllSales() {
   })
 }
 
+export async function getRecentMovements(limit: number = 50) {
+  return prisma.inventoryMovement.findMany({
+    orderBy: { created_at: 'desc' },
+    take: limit,
+    include: {
+      product: true
+    }
+  })
+}
+
 export async function getActiveProductsSimple() {
   const products = await prisma.product.findMany({
     where: { is_active: true },
@@ -162,7 +172,31 @@ export async function getActiveProductsSimple() {
     name: p.name,
     slug: p.slug,
     presentation: p.presentation,
+    category: p.category,
     price: Number(p.price),
-    stock: p.stock
+    stock: p.stock,
+    min_stock: p.min_stock
   }))
+}
+
+export async function getAllProductsWithStock() {
+  try {
+    const products = await prisma.product.findMany({
+      orderBy: { name: 'asc' }
+    })
+    console.log('Found products:', products.length)
+    return products.map(p => ({
+      id: p.id,
+      name: p.name,
+      slug: p.slug,
+      presentation: p.presentation,
+      category: p.category,
+      price: Number(p.price),
+      stock: p.stock,
+      min_stock: p.min_stock
+    }))
+  } catch (err) {
+    console.error('Error in getAllProductsWithStock:', err)
+    return []
+  }
 }

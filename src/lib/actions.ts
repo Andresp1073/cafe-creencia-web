@@ -1,7 +1,7 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
-import { Category, Presentation } from '@prisma/client'
+import { Category, Presentation, MovementType } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import { cleanSlug } from './validations'
 import { decrementStock, getActiveProductsSimple } from './products'
@@ -185,4 +185,71 @@ export async function registerSale(
   revalidatePath('/admin/productos')
   revalidatePath('/catalogo')
   return { success: true, sale }
+}
+
+export async function registerInventoryMovementAction(formData: FormData) {
+  const productId = parseInt(formData.get('product_id') as string)
+  const type = formData.get('type') as MovementType
+  const quantity = parseInt(formData.get('quantity') as string)
+  const reason = formData.get('reason') as string
+
+  if (!productId || productId <= 0) {
+    return { error: 'Debe seleccionar un producto' }
+  }
+
+  if (!type || (type !== 'ENTRADA' && type !== 'SALIDA')) {
+    return { error: 'Debe seleccionar tipo de movimiento' }
+  }
+
+  if (!quantity || quantity <= 0) {
+    return { error: 'La cantidad debe ser mayor a 0' }
+  }
+
+  if (!reason || reason.trim() === '') {
+    return { error: 'El motivo es obligatorio' }
+  }
+
+  const product = await prisma.product.findUnique({
+    where: { id: productId }
+  })
+
+  if (!product) {
+    return { error: 'Producto no encontrado' }
+  }
+
+  if (type === 'SALIDA' && product.stock < quantity) {
+    return { error: `Stock insuficiente. Stock actual: ${product.stock}` }
+  }
+
+  try {
+    await prisma.$transaction(async (tx) => {
+      await tx.inventoryMovement.create({
+        data: {
+          product_id: productId,
+          type,
+          quantity,
+          reason,
+        }
+      })
+
+      if (type === 'ENTRADA') {
+        await tx.product.update({
+          where: { id: productId },
+          data: { stock: { increment: quantity } }
+        })
+      } else {
+        await tx.product.update({
+          where: { id: productId },
+          data: { stock: { decrement: quantity } }
+        })
+      }
+    })
+  } catch (err) {
+    console.error('Error registering movement:', err)
+    return { error: 'Error al registrar movimiento: ' + String(err) }
+  }
+
+  revalidatePath('/admin/inventario')
+  revalidatePath('/admin/productos')
+  return { success: true }
 }
