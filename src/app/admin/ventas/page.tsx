@@ -266,14 +266,15 @@ export default function NewSalePage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-bold text-gray-800 mb-1">Teléfono</label>
+                <label className="block text-sm font-bold text-gray-800 mb-1">Teléfono *</label>
                 <input
                   type="text"
                   value={customerPhone}
                   onChange={(e) => setCustomerPhone(e.target.value)}
                   style={{ backgroundColor: '#ffffff', color: '#000000' }}
                   className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-                  placeholder="Opcional"
+                  placeholder="Obligatorio"
+                  required
                 />
               </div>
             </div>

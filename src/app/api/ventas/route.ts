@@ -10,6 +10,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'La venta no tiene productos' }, { status: 400 })
     }
 
+    if (!customerPhone) {
+      return NextResponse.json({ error: 'El teléfono es obligatorio' }, { status: 400 })
+    }
+
     let total = 0
     const saleItemsData = []
 
@@ -23,6 +27,11 @@ export async function POST(request: Request) {
           error: `Stock insuficiente para ${product.name}. Stock actual: ${product.stock}` 
         }, { status: 400 })
       }
+      if (!product.is_active) {
+        return NextResponse.json({ 
+          error: `El producto ${product.name} no está activo` 
+        }, { status: 400 })
+      }
       const subtotal = item.quantity * item.unitPrice
       total += subtotal
       saleItemsData.push({
@@ -33,34 +42,47 @@ export async function POST(request: Request) {
       })
     }
 
-    const sale = await prisma.sale.create({
-      data: {
-        customer_name: customerName,
-        customer_phone: customerPhone,
-        total,
-        saleItems: {
-          create: saleItemsData,
-        },
-      },
-      include: {
-        saleItems: {
-          include: {
-            product: true
-          }
-        },
-      },
-    })
-
-    for (const item of items) {
-      await prisma.product.update({
-        where: { id: item.productId },
+    const sale = await prisma.$transaction(async (tx) => {
+      const newSale = await tx.sale.create({
         data: {
-          stock: {
-            decrement: item.quantity,
+          customer_name: customerName,
+          customer_phone: customerPhone,
+          total,
+          saleItems: {
+            create: saleItemsData,
+          },
+        },
+        include: {
+          saleItems: {
+            include: {
+              product: true
+            }
           },
         },
       })
-    }
+
+      for (const item of items) {
+        await tx.product.update({
+          where: { id: item.productId },
+          data: {
+            stock: {
+              decrement: item.quantity,
+            },
+          },
+        })
+
+        await tx.inventoryMovement.create({
+          data: {
+            product_id: item.productId,
+            type: 'SALIDA',
+            quantity: item.quantity,
+            reason: `Venta registrada #${newSale.id}`,
+          },
+        })
+      }
+
+      return newSale
+    })
 
     return NextResponse.json({ success: true, sale })
   } catch (err) {

@@ -9,7 +9,9 @@
     "lint": "eslint",
     "db:push": "prisma db push",
     "db:seed": "npx tsx prisma/seed.ts",
-    "db:reset": "npx prisma migrate reset --force --skip-seed && npx prisma db seed"
+    "db:reset": "npx prisma migrate reset --force --skip-seed && npx prisma db seed",
+    "test": "vitest",
+    "test:run": "vitest run"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
@@ -24,11 +26,14 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitest/ui": "^3.2.4",
     "eslint": "^9",
     "eslint-config-next": "16.2.3",
+    "jsdom": "^26.0.0",
     "tailwindcss": "^4",
     "tsx": "^4.21.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^3.2.4"
   },
   "prisma": {
     "seed": "npx tsx prisma/seed.ts"
