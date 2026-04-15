@@ -13,6 +13,12 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             <Link href="/admin/productos" className="text-gray-700 hover:text-amber-700">
               Productos
             </Link>
+            <Link href="/admin/ventas" className="text-gray-700 hover:text-amber-700">
+              Ventas
+            </Link>
+            <Link href="/admin/ventas/historial" className="text-gray-700 hover:text-amber-700 text-sm">
+              Historial
+            </Link>
           </div>
           <div className="flex items-center gap-4">
             <Link href="/catalogo" target="_blank" className="text-gray-600 hover:text-amber-700 text-sm">

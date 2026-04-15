@@ -8,6 +8,7 @@ export default function CreateProductForm() {
   const formRef = useRef<HTMLFormElement>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
+  const [slugValue, setSlugValue] = useState('')
 
   async function handleSubmit(formData: FormData) {
     setIsLoading(true)
@@ -22,6 +23,13 @@ export default function CreateProductForm() {
     } else {
       setMessage({ type: 'success', text: 'Producto creado exitosamente' })
       formRef.current?.reset()
+      setSlugValue('')
+    }
+  }
+
+  const handleNameChange = (name: string) => {
+    if (!slugValue) {
+      setSlugValue(generateSlug(name))
     }
   }
 
@@ -36,34 +44,34 @@ export default function CreateProductForm() {
       )}
 
       <div>
-        <label className="block text-sm font-bold text-gray-800 mb-1">Nombre *</label>
+        <label className="block text-sm font-bold text-gray-800 mb-1">Nombre del producto *</label>
         <input
           type="text"
           name="name"
           required
-          onChange={(e) => {
-            const slugInput = document.querySelector('input[name="slug"]') as HTMLInputElement
-            if (slugInput && !slugInput.value) {
-              slugInput.value = generateSlug(e.target.value)
-            }
-          }}
+          onChange={(e) => handleNameChange(e.target.value)}
           style={{ backgroundColor: '#ffffff', color: '#000000' }}
           className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-          placeholder="Café Tradicional 500g"
+          placeholder="Ej: Café Tradicional 500g"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-bold text-gray-800 mb-1">Slug *</label>
+        <label className="block text-sm font-bold text-gray-800 mb-1">Slug (URL) *</label>
         <input
           type="text"
           name="slug"
           required
-          pattern="^[a-z0-9-]+$"
+          value={slugValue}
+          onChange={(e) => {
+            const cleaned = e.target.value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+            setSlugValue(cleaned)
+          }}
           style={{ backgroundColor: '#ffffff', color: '#000000' }}
           className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-          placeholder="cafe-tradicional-500g"
+          placeholder="Ej: cafe-tradicional-500g"
         />
+        <p className="text-xs text-gray-500 mt-1">Solo letras minúsculas, números y guiones (sin espacios)</p>
       </div>
 
       <div className="grid grid-cols-2 gap-4">

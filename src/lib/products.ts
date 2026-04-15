@@ -121,3 +121,48 @@ export async function checkSlugExists(slug: string, excludeId?: number): Promise
   })
   return !!product
 }
+
+export async function decrementStock(productId: number, quantity: number): Promise<Product> {
+  const product = await prisma.product.findUnique({
+    where: { id: productId }
+  })
+  
+  if (!product) {
+    throw new Error('Producto no encontrado')
+  }
+  
+  const newStock = product.stock - quantity
+  
+  return prisma.product.update({
+    where: { id: productId },
+    data: { stock: Math.max(0, newStock) }
+  })
+}
+
+export async function getAllSales() {
+  return prisma.sale.findMany({
+    orderBy: { created_at: 'desc' },
+    include: {
+      saleItems: {
+        include: {
+          product: true
+        }
+      }
+    }
+  })
+}
+
+export async function getActiveProductsSimple() {
+  const products = await prisma.product.findMany({
+    where: { is_active: true },
+    orderBy: { name: 'asc' }
+  })
+  return products.map(p => ({
+    id: p.id,
+    name: p.name,
+    slug: p.slug,
+    presentation: p.presentation,
+    price: Number(p.price),
+    stock: p.stock
+  }))
+}

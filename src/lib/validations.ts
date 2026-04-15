@@ -79,10 +79,17 @@ export function validateProduct(data: ProductFormData, excludeId?: number): Vali
 }
 
 export function generateSlug(name: string): string {
+  if (!name || name.trim() === '') return ''
   return name
     .toLowerCase()
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/\s+/g, '-')
     .replace(/[^a-z0-9-]/g, '')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+}
+
+export function cleanSlug(slug: string): string {
+  return slug.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '')
 }

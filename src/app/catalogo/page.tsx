@@ -7,6 +7,7 @@ export const revalidate = 0
 
 export default async function CatalogoPage() {
   const products = await getActiveProducts()
+  console.log('Active products:', products.map(p => ({ name: p.name, slug: p.slug })))
 
   return (
     <>

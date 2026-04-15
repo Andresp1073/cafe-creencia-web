@@ -11,7 +11,10 @@ export const revalidate = 0
 
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params
-  const product = await getProductBySlug(slug)
+  const decodedSlug = decodeURIComponent(slug)
+  console.log('Looking for product with slug:', decodedSlug)
+  const product = await getProductBySlug(decodedSlug)
+  console.log('Found product:', product)
 
   if (!product) {
     notFound()

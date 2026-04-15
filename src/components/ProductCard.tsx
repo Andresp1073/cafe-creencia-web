@@ -9,6 +9,7 @@ interface ProductCardProps {
     presentation: string
     price: unknown
     image_url: string | null
+    stock: number
   }
 }
 
@@ -40,8 +41,12 @@ export default function ProductCard({ product }: ProductCardProps) {
           {product.name}
         </h3>
         
-        <p className="text-sm text-amber-700 mb-3">
+        <p className="text-sm text-amber-700 mb-1">
           Presentación: {presentation}
+        </p>
+        
+        <p className={`text-sm mb-3 ${product.stock > 0 ? 'text-green-600' : 'text-red-600'}`}>
+          {product.stock > 0 ? `${product.stock} unidades disponibles` : 'Agotado'}
         </p>
         
         <p className="text-xl font-bold text-amber-900 mb-4">
