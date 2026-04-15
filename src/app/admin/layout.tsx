@@ -7,8 +7,11 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       <nav className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-6">
-            <Link href="/admin/productos" className="text-xl font-bold text-amber-900">
+            <Link href="/admin" className="text-xl font-bold text-amber-900">
               Cafe Creencia - Admin
+            </Link>
+            <Link href="/admin" className="text-gray-700 hover:text-amber-700">
+              Dashboard
             </Link>
             <Link href="/admin/productos" className="text-gray-700 hover:text-amber-700">
               Productos
@@ -27,9 +30,11 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             <Link href="/catalogo" target="_blank" className="text-gray-600 hover:text-amber-700 text-sm">
               Ver catálogo
             </Link>
-            <Link href="/" className="text-gray-600 hover:text-amber-700 text-sm">
-              Inicio
-            </Link>
+            <form action="/api/auth/logout" method="POST">
+              <button type="submit" className="text-gray-600 hover:text-amber-700 text-sm">
+                Cerrar sesión
+              </button>
+            </form>
           </div>
         </div>
       </nav>

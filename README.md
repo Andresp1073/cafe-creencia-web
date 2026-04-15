@@ -1,36 +1,132 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cafe Creencia - E-commerce de Café Artesanal
 
-## Getting Started
+Tienda en línea de café artesanal colombiano con panel administrativo.
 
-First, run the development server:
+## 🚀 Tecnologías
 
+- **Frontend**: Next.js 16 (App Router), TypeScript, Tailwind CSS
+- **Backend**: Prisma ORM, MySQL
+- **Testing**: Vitest
+
+## 📋 Requisitos
+
+- Node.js 18+
+- MySQL 8.0+
+- npm o yarn
+
+## ⚙️ Instalación
+
+1. Clonar el repositorio:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/Andresp1073/cafe-creencia-web.git
+cd cafe-creencia-web
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Instalar dependencias:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Configurar variables de entorno:
+```bash
+# Crear archivo .env
+DATABASE_URL="mysql://root:password@localhost:3306/cafe_creencia"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Ejecutar Prisma:
+```bash
+npx prisma db push
+```
 
-## Learn More
+5. Ejecutar seed (datos iniciales):
+```bash
+npx prisma db seed
+# o
+npm run db:seed
+```
 
-To learn more about Next.js, take a look at the following resources:
+6. Iniciar servidor de desarrollo:
+```bash
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔑 Credenciales Admin
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Después de ejecutar el seed, crear usuario administrador:
+```bash
+npx tsx scripts/create-admin.ts
+```
 
-## Deploy on Vercel
+Credenciales por defecto:
+- Email: admin@cafecreencia.com
+- Password: admin123
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📁 Estructura del Proyecto
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+├── app/                    # Páginas Next.js
+│   ├── admin/             # Panel administrativo
+│   ├── api/                # API routes
+│   ├── catalogo/           # Catálogo público
+│   ├── login/              # Login admin
+│   └── productos/           # Detalle producto
+├── components/             # Componentes reutilizables
+├── lib/                    # Utilidades y funciones
+│   ├── actions.ts          # Server Actions
+│   ├── auth.ts             # Autenticación
+│   ├── dashboard.ts        # Funciones dashboard
+│   ├── products.ts        # operaciones productos
+│   └── validations.ts     # Validaciones
+└── prisma/
+    └── schema.prisma       # Schema de base de datos
+```
+
+## 🧪 Pruebas
+
+Ejecutar pruebas unitarias:
+```bash
+npm run test:run
+# o
+npx vitest run
+```
+
+## 📦 Scripts Disponibles
+
+```bash
+npm run dev          # Desarrollo
+npm run build       # Producción
+npm run start       # Iniciar producción
+npm run lint       # Linter
+npm run db:push    # Sincronizar BD
+npm run db:seed   # Seed de datos
+npm run test      # Pruebas watch
+npm run test:run  # Pruebas una vez
+```
+
+## 🌐 Rutas
+
+- **Público**:
+  - `/` - Inicio
+  - `/catalogo` - Catálogo de productos
+  - `/productos/[slug]` - Detalle producto
+
+- **Admin** (requieren login):
+  - `/login` - Login administrador
+  - `/admin` - Dashboard
+  - `/admin/productos` - Gestión productos
+  - `/admin/ventas` - Registrar ventas
+  - `/admin/ventas/historial` - Historial ventas
+  - `/admin/inventario` - Inventario
+  - `/admin/inventario/movimiento` - Registrar movimiento
+
+## 🔧 Construcción para Producción
+
+```bash
+npm run build
+npm start
+```
+
+## 📄 Licencia
+
+Privado - Cafe Creencia

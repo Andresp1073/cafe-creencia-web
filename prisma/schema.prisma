@@ -24,6 +24,21 @@ enum MovementType {
   SALIDA
 }
 
+enum UserRole {
+  ADMIN
+  EMPLEADO
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name     String
+  email    String   @unique
+  password String
+  role     UserRole @default(EMPLEADO)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
 model Product {
   id          Int      @id @default(autoincrement())
   name        String
