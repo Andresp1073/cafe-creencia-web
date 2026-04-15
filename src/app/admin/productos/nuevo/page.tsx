@@ -36,7 +36,7 @@ export default function CreateProductForm() {
       )}
 
       <div>
-        <label className="block text-sm font-medium text-gray-900 mb-1">Nombre *</label>
+        <label className="block text-sm font-bold text-gray-800 mb-1">Nombre *</label>
         <input
           type="text"
           name="name"
@@ -47,35 +47,37 @@ export default function CreateProductForm() {
               slugInput.value = generateSlug(e.target.value)
             }
           }}
-          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
+          style={{ backgroundColor: '#ffffff', color: '#000000' }}
+          className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
           placeholder="Café Tradicional 500g"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-900 mb-1">Slug *</label>
+        <label className="block text-sm font-bold text-gray-800 mb-1">Slug *</label>
         <input
           type="text"
           name="slug"
           required
           pattern="^[a-z0-9-]+$"
-          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
+          style={{ backgroundColor: '#ffffff', color: '#000000' }}
+          className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
           placeholder="cafe-tradicional-500g"
         />
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-900 mb-1">Categoría *</label>
-          <select name="category" required className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 text-gray-900">
+          <label className="block text-sm font-bold text-gray-800 mb-1">Categoría *</label>
+          <select name="category" required style={{ backgroundColor: '#ffffff', color: '#000000' }} className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-amber-500">
             {CATEGORIES.map(cat => (
               <option key={cat} value={cat}>{CATEGORY_LABELS[cat]}</option>
             ))}
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-900 mb-1">Presentación *</label>
-          <select name="presentation" required className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 text-gray-900">
+          <label className="block text-sm font-bold text-gray-800 mb-1">Presentación *</label>
+          <select name="presentation" required style={{ backgroundColor: '#ffffff', color: '#000000' }} className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-amber-500">
             {PRESENTATIONS.map(pres => (
               <option key={pres} value={pres}>{PRESENTATION_LABELS[pres]}</option>
             ))}
@@ -85,70 +87,75 @@ export default function CreateProductForm() {
 
       <div className="grid grid-cols-3 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-900 mb-1">Peso (g) *</label>
+          <label className="block text-sm font-bold text-gray-800 mb-1">Peso (g) *</label>
           <input
-            type="number"
+            type="text"
             name="weight_grams"
             required
-            min="1"
+            inputMode="numeric"
+            style={{ backgroundColor: '#ffffff', color: '#000000' }}
+            className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
             placeholder="500"
-            className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-900 mb-1">Precio *</label>
+          <label className="block text-sm font-bold text-gray-800 mb-1">Precio *</label>
           <input
-            type="number"
+            type="text"
             name="price"
             required
-            min="0"
-            step="0.01"
+            inputMode="decimal"
+            style={{ backgroundColor: '#ffffff', color: '#000000' }}
+            className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
             placeholder="15000"
-            className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-900 mb-1">Stock *</label>
+          <label className="block text-sm font-bold text-gray-800 mb-1">Stock *</label>
           <input
-            type="number"
+            type="text"
             name="stock"
             required
-            min="0"
+            inputMode="numeric"
+            style={{ backgroundColor: '#ffffff', color: '#000000' }}
+            className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
             placeholder="20"
-            className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
           />
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-900 mb-1">Stock mínimo</label>
+        <label className="block text-sm font-bold text-gray-800 mb-1">Stock mínimo</label>
         <input
-          type="number"
+          type="text"
           name="min_stock"
-          min="0"
+          inputMode="numeric"
+          style={{ backgroundColor: '#ffffff', color: '#000000' }}
+          className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
           placeholder="5"
-          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-900 mb-1">Descripción *</label>
+        <label className="block text-sm font-bold text-gray-800 mb-1">Descripción *</label>
         <textarea
           name="description"
           required
           rows={3}
-          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
+          style={{ backgroundColor: '#ffffff', color: '#000000' }}
+          className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
           placeholder="Descripción del producto..."
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-900 mb-1">URL de imagen</label>
+        <label className="block text-sm font-bold text-gray-800 mb-1">URL de imagen</label>
         <input
           type="text"
           name="image_url"
+          style={{ backgroundColor: '#ffffff', color: '#000000' }}
+          className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
           placeholder="/products/default.svg"
-          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-900"
         />
       </div>
 
@@ -160,7 +167,7 @@ export default function CreateProductForm() {
           defaultChecked
           className="w-4 h-4 text-amber-600 border-gray-300 rounded focus:ring-amber-500"
         />
-        <label htmlFor="is_active" className="text-sm text-gray-700">
+        <label htmlFor="is_active" className="text-sm text-gray-800 font-bold">
           Producto activo (visible en catálogo público)
         </label>
       </div>
@@ -168,7 +175,7 @@ export default function CreateProductForm() {
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full px-4 py-2 bg-amber-700 hover:bg-amber-800 text-white rounded-lg disabled:opacity-50"
+        className="w-full px-4 py-3 bg-amber-700 hover:bg-amber-800 text-white font-bold rounded-lg disabled:opacity-50"
       >
         {isLoading ? 'Guardando...' : 'Crear producto'}
       </button>
